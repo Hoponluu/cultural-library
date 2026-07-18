@@ -1,0 +1,26 @@
+[
+  {
+    "id": "lich-su",
+    "name": "Lịch sử"
+  },
+  {
+    "id": "my-thuat",
+    "name": "Mỹ thuật"
+  },
+  {
+    "id": "van-hoc-dan-gian",
+    "name": "Văn học dân gian"
+  },
+  {
+    "id": "ton-giao-tin-nguong",
+    "name": "Tôn giáo - Tín ngưỡng"
+  },
+  {
+    "id": "kien-truc",
+    "name": "Kiến trúc"
+  },
+  {
+    "id": "phong-tuc-tap-quan",
+    "name": "Phong tục - Tập quán"
+  }
+]

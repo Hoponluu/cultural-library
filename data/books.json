@@ -1,0 +1,42 @@
+[
+  {
+    "id": "viet-nam-van-hoa-su-cuong",
+    "title": "Việt Nam văn hoá sử cương",
+    "author": "Đào Duy Anh",
+    "publisher": "NXB Hồng Đức",
+    "thumbnail": "",
+    "description": "Công trình kinh điển khảo cứu toàn diện về văn hoá Việt Nam từ sinh hoạt kinh tế, xã hội đến trí thức, tôn giáo.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": [
+      "lich-su",
+      "phong-tuc-tap-quan"
+    ],
+    "createdAt": "2026-07-18T00:00:00.000Z"
+  },
+  {
+    "id": "my-thuat-nguoi-viet",
+    "title": "Mỹ thuật người Việt",
+    "author": "Nguyễn Đỗ Bảo",
+    "publisher": "NXB Mỹ Thuật",
+    "thumbnail": "",
+    "description": "Khảo cứu về mỹ thuật truyền thống Việt Nam qua các thời kỳ, từ đình chùa đến tranh dân gian.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": [
+      "my-thuat"
+    ],
+    "createdAt": "2026-07-18T00:00:00.000Z"
+  },
+  {
+    "id": "kho-tang-truyen-co-tich-viet-nam",
+    "title": "Kho tàng truyện cổ tích Việt Nam",
+    "author": "Nguyễn Đổng Chi",
+    "publisher": "NXB Trẻ",
+    "thumbnail": "",
+    "description": "Bộ sưu tập và khảo cứu công phu về truyện cổ tích dân gian Việt Nam.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": [
+      "van-hoc-dan-gian"
+    ],
+    "createdAt": "2026-07-18T00:00:00.000Z"
+  }
+]
