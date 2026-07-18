@@ -11,5 +11,5 @@ export const isAdminSession = cache(async (): Promise<boolean> => {
 
 export async function requireAdminSession(): Promise<void> {
   const ok = await isAdminSession();
-  if (!ok) redirect("/admin/login");
+  if (!ok) redirect("/ChatVietCMS/login");
 }

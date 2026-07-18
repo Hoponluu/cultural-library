@@ -5,7 +5,7 @@ Web app hiển thị và quản lý các đầu sách khảo cứu văn hoá, x�
 ## Tính năng
 
 - **Trang public** (`/`): grid thumbnail sách (tên + tác giả), filter theo nhiều category, click vào sách để xem chi tiết (NXB, mô tả, category, link mua/đọc).
-- **Trang admin** (`/admin`, có bảo vệ bằng mật khẩu):
+- **Trang admin** (`/ChatVietCMS`, có bảo vệ bằng mật khẩu):
   - Thêm / sửa / xoá sách, upload ảnh bìa.
   - Thêm / xoá category (xoá category sẽ tự gỡ khỏi các sách đang gán).
   - Export toàn bộ dữ liệu ra CSV.
@@ -19,7 +19,7 @@ Dữ liệu được lưu dạng file JSON trong thư mục `data/` (`books.json
 
 Vì vậy, workflow đề xuất là:
 
-1. Chạy `npm run dev` **ở local** để vào `/admin` thêm/sửa sách, upload ảnh — các thay đổi được ghi trực tiếp vào `data/*.json` và `public/uploads/`.
+1. Chạy `npm run dev` **ở local** để vào `/ChatVietCMS` thêm/sửa sách, upload ảnh — các thay đổi được ghi trực tiếp vào `data/*.json` và `public/uploads/`.
 2. `git add` + `git commit` các thay đổi đó (bao gồm cả ảnh upload).
 3. Deploy/redeploy lên Vercel/Netlify — trang public (`/`) được build tĩnh từ dữ liệu đã commit.
 
@@ -39,7 +39,7 @@ Nếu sau này cần admin thao tác trực tiếp trên môi trường producti
    cp .env.example .env.local
    ```
 
-   Sửa `ADMIN_PASSWORD` (mật khẩu đăng nhập `/admin`) và `SESSION_SECRET` (chuỗi bí mật bất kỳ, dùng để ký session cookie) trong `.env.local`.
+   Sửa `ADMIN_PASSWORD` (mật khẩu đăng nhập `/ChatVietCMS`) và `SESSION_SECRET` (chuỗi bí mật bất kỳ, dùng để ký session cookie) trong `.env.local`.
 
 3. Chạy dev server:
 
@@ -47,7 +47,7 @@ Nếu sau này cần admin thao tác trực tiếp trên môi trường producti
    npm run dev
    ```
 
-   Mở [http://localhost:3000](http://localhost:3000) cho trang public, [http://localhost:3000/admin](http://localhost:3000/admin) cho trang quản trị.
+   Mở [http://localhost:3000](http://localhost:3000) cho trang public, [http://localhost:3000/ChatVietCMS](http://localhost:3000/ChatVietCMS) cho trang quản trị.
 
 ## Build production
 

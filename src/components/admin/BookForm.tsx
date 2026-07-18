@@ -72,7 +72,7 @@ export default function BookForm({
       return;
     }
 
-    router.push("/admin/books");
+    router.push("/ChatVietCMS/books");
     router.refresh();
   }
 
@@ -180,7 +180,7 @@ export default function BookForm({
         </button>
         <button
           type="button"
-          onClick={() => router.push("/admin/books")}
+          onClick={() => router.push("/ChatVietCMS/books")}
           className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium dark:border-white/20"
         >
           Huỷ

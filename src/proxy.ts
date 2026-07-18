@@ -5,10 +5,10 @@ import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isLoginPage = pathname === "/admin/login";
+  const isLoginPage = pathname === "/ChatVietCMS/login";
   const isLoginApi = pathname === "/api/admin/login";
 
-  const isAdminPage = pathname.startsWith("/admin") && !isLoginPage;
+  const isAdminPage = pathname.startsWith("/ChatVietCMS") && !isLoginPage;
   const isAdminApi = pathname.startsWith("/api/admin") && !isLoginApi;
 
   if (!isAdminPage && !isAdminApi) return NextResponse.next();
@@ -22,10 +22,10 @@ export function proxy(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const loginUrl = new URL("/admin/login", request.url);
+  const loginUrl = new URL("/ChatVietCMS/login", request.url);
   return NextResponse.redirect(loginUrl);
 }
 
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/ChatVietCMS/:path*", "/api/admin/:path*"],
 };

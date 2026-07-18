@@ -62,7 +62,7 @@ export default function BooksTable({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-3 text-sm">
-            <Link href={`/admin/books/${book.id}/edit`} className="hover:underline">
+            <Link href={`/ChatVietCMS/books/${book.id}/edit`} className="hover:underline">
               Sửa
             </Link>
             <button

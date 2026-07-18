@@ -11,7 +11,7 @@ export default async function AdminBooksPage() {
       <div className="mb-6 flex items-center justify-between">
         <h1 className="text-2xl font-semibold">Sách ({books.length})</h1>
         <Link
-          href="/admin/books/new"
+          href="/ChatVietCMS/books/new"
           className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
         >
           + Thêm sách mới
