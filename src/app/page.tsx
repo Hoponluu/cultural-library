@@ -22,24 +22,26 @@ export default async function Home() {
             <h1 className="text-2xl font-semibold text-highlight sm:text-3xl">
               Thư viện sách khảo cứu văn hoá
             </h1>
-            <p className="mt-2 text-sm text-neutral-500">
-              Một dự án phụ của{" "}
-              <a
-                href="https://chatviet.org"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-highlight hover:underline"
-              >
-                Chất Việt
-              </a>
-              , nhằm lưu trữ tư liệu nghiên cứu.
-            </p>
             <p className="mt-2 text-neutral-400">
               Tuyển tập các đầu sách khảo cứu văn hoá Việt Nam và thế giới.
             </p>
           </header>
           <BookGrid books={books} categories={categories} />
         </div>
+        <footer className="border-t border-neutral-800 py-6">
+          <p className="mx-auto w-full max-w-6xl px-4 text-sm text-neutral-500">
+            Một dự án phụ của{" "}
+            <a
+              href="https://chatviet.org"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-highlight hover:underline"
+            >
+              Chất Việt
+            </a>
+            , nhằm lưu trữ tư liệu nghiên cứu.
+          </p>
+        </footer>
       </main>
     </>
   );
