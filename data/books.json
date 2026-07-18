@@ -38,5 +38,148 @@
       "van-hoc-dan-gian"
     ],
     "createdAt": "2026-07-18T00:00:00.000Z"
+  },
+  {
+    "id": "viet-nam-su-luoc",
+    "title": "Việt Nam sử lược",
+    "author": "Trần Trọng Kim",
+    "publisher": "NXB Văn học",
+    "thumbnail": "",
+    "description": "Bộ thông sử đầu tiên viết bằng chữ Quốc ngữ, trình bày lịch sử Việt Nam từ thời thượng cổ đến đầu thế kỷ XX theo lối biên niên dễ đọc.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:00.000Z"
+  },
+  {
+    "id": "dai-viet-su-ky-toan-thu",
+    "title": "Đại Việt sử ký toàn thư",
+    "author": "Ngô Sĩ Liên và các sử thần triều Lê",
+    "publisher": "NXB Khoa học Xã hội",
+    "thumbnail": "",
+    "description": "Bộ chính sử cổ nhất còn nguyên vẹn của Việt Nam, ghi chép lịch sử từ thời Hồng Bàng đến đầu thời Hậu Lê, biên soạn theo lệnh triều đình.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:01.000Z"
+  },
+  {
+    "id": "dai-nam-thuc-luc",
+    "title": "Đại Nam thực lục",
+    "author": "Quốc Sử Quán triều Nguyễn",
+    "publisher": "NXB Giáo dục",
+    "thumbnail": "",
+    "description": "Bộ thực lục đồ sộ ghi chép chi tiết các sự kiện dưới triều Nguyễn, là nguồn sử liệu gốc quan trọng bậc nhất cho giai đoạn cận đại Việt Nam.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:02.000Z"
+  },
+  {
+    "id": "kham-dinh-viet-su-thong-giam-cuong-muc",
+    "title": "Khâm định Việt sử Thông giám cương mục",
+    "author": "Quốc Sử Quán triều Nguyễn",
+    "publisher": "NXB Giáo dục",
+    "thumbnail": "",
+    "description": "Bộ sử biên niên do triều Nguyễn chủ trì biên soạn, hệ thống lại lịch sử Việt Nam từ thời Hùng Vương đến hết thời Hậu Lê theo thể cương mục.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:03.000Z"
+  },
+  {
+    "id": "viet-su-tieu-an",
+    "title": "Việt sử tiêu án",
+    "author": "Ngô Thì Sĩ",
+    "publisher": "NXB Văn hóa Thông tin",
+    "thumbnail": "",
+    "description": "Công trình khảo cứu sử học thế kỷ XVIII, nổi bật với tinh thần phê phán và đối chiếu sử liệu, đính chính nhiều điểm trong các bộ sử trước đó.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:04.000Z"
+  },
+  {
+    "id": "lich-su-noi-chien-o-viet-nam-tu-1771-den-1802",
+    "title": "Lịch sử nội chiến ở Việt Nam từ 1771 đến 1802",
+    "author": "Tạ Chí Đại Trường",
+    "publisher": "NXB Công an Nhân dân",
+    "thumbnail": "",
+    "description": "Công trình khảo cứu công phu về giai đoạn Tây Sơn – Nguyễn Ánh, được giới sử học đánh giá cao về phương pháp phân tích sử liệu độc lập.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:05.000Z"
+  },
+  {
+    "id": "xu-dang-trong",
+    "title": "Xứ Đàng Trong: Lịch sử kinh tế - xã hội Việt Nam thế kỷ 17 và 18",
+    "author": "Li Tana",
+    "publisher": "NXB Trẻ",
+    "thumbnail": "",
+    "description": "Nghiên cứu của học giả Li Tana về quá trình hình thành và phát triển kinh tế - xã hội Đàng Trong dưới thời các chúa Nguyễn.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:06.000Z"
+  },
+  {
+    "id": "viet-nam-thoi-phap-do-ho",
+    "title": "Việt Nam thời Pháp đô hộ",
+    "author": "Nguyễn Thế Anh",
+    "publisher": "NXB Văn học",
+    "thumbnail": "",
+    "description": "Khảo cứu hệ thống về bộ máy cai trị, chính sách và biến chuyển xã hội Việt Nam trong thời kỳ Pháp thuộc.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:07.000Z"
+  },
+  {
+    "id": "lich-su-viet-nam-tu-nguon-goc-den-giua-the-ky-xx",
+    "title": "Lịch sử Việt Nam từ nguồn gốc đến giữa thế kỷ XX",
+    "author": "Lê Thành Khôi",
+    "publisher": "NXB Thế giới",
+    "thumbnail": "",
+    "description": "Bộ thông sử trình bày tiến trình lịch sử Việt Nam trong tương quan với khu vực và thế giới, của một trong những sử gia Việt kiều có ảnh hưởng.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:08.000Z"
+  },
+  {
+    "id": "nhin-lai-su-viet",
+    "title": "Nhìn lại sử Việt",
+    "author": "Lê Mạnh Hùng",
+    "publisher": "Tổ hợp Xuất bản Miền Đông Hoa Kỳ",
+    "thumbnail": "",
+    "description": "Bộ sách nhiều tập nhìn lại lịch sử Việt Nam từ góc độ sử liệu và phân tích hiện đại, từ thời lập quốc đến cận đại.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["lich-su"],
+    "createdAt": "2026-07-19T00:00:09.000Z"
+  },
+  {
+    "id": "my-thuat-viet-nam-nguyen-phi-hoanh",
+    "title": "Mỹ thuật Việt Nam",
+    "author": "Nguyễn Phi Hoanh",
+    "publisher": "NXB Thành phố Hồ Chí Minh",
+    "thumbnail": "",
+    "description": "Một trong những công trình khảo cứu mỹ thuật Việt Nam sớm và toàn diện, khái quát tiến trình mỹ thuật dân tộc qua các thời kỳ lịch sử.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["my-thuat"],
+    "createdAt": "2026-07-19T00:00:10.000Z"
+  },
+  {
+    "id": "my-thuat-ly-tran-my-thuat-phat-giao",
+    "title": "Mỹ thuật Lý – Trần: Mỹ thuật Phật giáo",
+    "author": "Chu Quang Trứ",
+    "publisher": "NXB Mỹ thuật",
+    "thumbnail": "",
+    "description": "Khảo cứu chuyên sâu về mỹ thuật Phật giáo thời Lý – Trần, giai đoạn hoàng kim của điêu khắc và kiến trúc chùa tháp Việt Nam.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["my-thuat"],
+    "createdAt": "2026-07-19T00:00:11.000Z"
+  },
+  {
+    "id": "dinh-viet-nam",
+    "title": "Đình Việt Nam",
+    "author": "Hà Văn Tấn, Nguyễn Văn Kự",
+    "publisher": "NXB Thành phố Hồ Chí Minh",
+    "thumbnail": "",
+    "description": "Công trình khảo cứu và ảnh tư liệu về kiến trúc, chạm khắc đình làng Việt Nam - di sản mỹ thuật dân gian đặc sắc.",
+    "link": "https://www.fahasa.com/",
+    "categoryIds": ["my-thuat"],
+    "createdAt": "2026-07-19T00:00:12.000Z"
   }
 ]
