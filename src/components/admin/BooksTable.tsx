@@ -38,7 +38,7 @@ export default function BooksTable({
     <div className="flex flex-col divide-y divide-neutral-800">
       {books.map((book) => (
         <div key={book.id} className="flex items-center gap-4 py-3">
-          <div className="h-16 w-12 shrink-0 overflow-hidden rounded border border-neutral-800">
+          <div className="h-16 w-12 shrink-0">
             <BookCover src={book.thumbnail} title={book.title} />
           </div>
           <div className="min-w-0 flex-1">

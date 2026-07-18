@@ -81,7 +81,7 @@ export default function BookForm({
       <div>
         <label className="mb-1 block text-sm font-medium text-neutral-300">Ảnh bìa (thumbnail)</label>
         <div className="flex items-center gap-4">
-          <div className="h-32 w-24 shrink-0 overflow-hidden rounded border border-neutral-800">
+          <div className="h-32 w-24 shrink-0">
             <BookCover src={removeThumbnail ? "" : thumbnailPreview} title={title || "Bìa sách"} />
           </div>
           <div className="flex flex-col gap-2">

@@ -106,12 +106,8 @@ export default function BookGrid({
               onClick={() => setSelectedBook(book)}
               className="group flex flex-col text-left"
             >
-              <div className="aspect-[3/4] w-full overflow-hidden rounded-lg border border-neutral-800">
-                <BookCover
-                  src={book.thumbnail}
-                  title={book.title}
-                  className="h-full w-full object-cover transition group-hover:scale-105"
-                />
+              <div className="aspect-[3/4] w-full">
+                <BookCover src={book.thumbnail} title={book.title} zoomOnHover />
               </div>
               <div className="mt-2 line-clamp-2 text-sm font-medium text-neutral-100">
                 {book.title}
@@ -153,7 +149,7 @@ function BookDetailModal({
         className="flex max-h-[85vh] w-full max-w-2xl gap-6 overflow-y-auto rounded-xl border border-neutral-800 bg-neutral-900 p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-40 shrink-0 overflow-hidden rounded-lg border border-neutral-800">
+        <div className="w-40 shrink-0">
           <BookCover src={book.thumbnail} title={book.title} />
         </div>
         <div className="flex flex-1 flex-col">
