@@ -1,9 +1,7 @@
 import "server-only";
-import { promises as fs } from "fs";
-import path from "path";
 import { randomUUID } from "crypto";
+import { COVERS_BUCKET, getSupabase } from "./supabase";
 
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 const ALLOWED_TYPES = new Set([
   "image/jpeg",
   "image/png",
@@ -19,15 +17,22 @@ export async function saveThumbnailUpload(file: File): Promise<string> {
   const ext = file.type.split("/")[1] === "jpeg" ? "jpg" : file.type.split("/")[1];
   const filename = `${randomUUID()}.${ext}`;
 
-  await fs.mkdir(UPLOAD_DIR, { recursive: true });
-  const buffer = Buffer.from(await file.arrayBuffer());
-  await fs.writeFile(path.join(UPLOAD_DIR, filename), buffer);
+  const { error } = await getSupabase()
+    .storage.from(COVERS_BUCKET)
+    .upload(filename, file, { contentType: file.type });
+  if (error) throw new Error(error.message);
 
-  return `/uploads/${filename}`;
+  const { data } = getSupabase().storage.from(COVERS_BUCKET).getPublicUrl(filename);
+  return data.publicUrl;
 }
 
-export async function deleteThumbnailUpload(publicPath: string): Promise<void> {
-  if (!publicPath.startsWith("/uploads/")) return;
-  const filePath = path.join(process.cwd(), "public", publicPath);
-  await fs.unlink(filePath).catch(() => {});
+export async function deleteThumbnailUpload(publicUrl: string): Promise<void> {
+  const marker = `/${COVERS_BUCKET}/`;
+  const index = publicUrl.indexOf(marker);
+  if (index === -1) return;
+
+  const filename = publicUrl.slice(index + marker.length);
+  if (!filename) return;
+
+  await getSupabase().storage.from(COVERS_BUCKET).remove([filename]);
 }

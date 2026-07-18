@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
-import { getBooks, saveBooks } from "@/lib/db";
+import { createBook, getBooks } from "@/lib/db";
 import { parseBookFormData } from "@/lib/bookForm";
 import { saveThumbnailUpload } from "@/lib/upload";
 import type { Book } from "@/lib/types";
@@ -41,9 +41,7 @@ export async function POST(request: Request) {
     createdAt: new Date().toISOString(),
   };
 
-  const books = await getBooks();
-  books.push(book);
-  await saveBooks(books);
+  await createBook(book);
 
   return NextResponse.json({ book }, { status: 201 });
 }

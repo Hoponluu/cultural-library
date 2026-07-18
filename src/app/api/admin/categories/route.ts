@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCategories, saveCategories } from "@/lib/db";
+import { createCategory, getCategories } from "@/lib/db";
 import { slugify } from "@/lib/slug";
 import type { Category } from "@/lib/types";
 
@@ -30,8 +30,7 @@ export async function POST(request: Request) {
   }
 
   const category: Category = { id, name };
-  categories.push(category);
-  await saveCategories(categories);
+  await createCategory(category);
 
   return NextResponse.json({ category }, { status: 201 });
 }

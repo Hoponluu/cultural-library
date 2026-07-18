@@ -1,39 +1,128 @@
 import "server-only";
-import { promises as fs } from "fs";
-import path from "path";
+import { getSupabase } from "./supabase";
 import type { Book, Category } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const BOOKS_FILE = path.join(DATA_DIR, "books.json");
-const CATEGORIES_FILE = path.join(DATA_DIR, "categories.json");
+type BookRow = {
+  id: string;
+  title: string;
+  author: string;
+  publisher: string;
+  thumbnail: string;
+  description: string;
+  link: string;
+  category_ids: string[];
+  created_at: string;
+};
 
-async function readJson<T>(file: string, fallback: T): Promise<T> {
-  try {
-    const raw = await fs.readFile(file, "utf-8");
-    return JSON.parse(raw) as T;
-  } catch (err) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") return fallback;
-    throw err;
-  }
+function rowToBook(row: BookRow): Book {
+  return {
+    id: row.id,
+    title: row.title,
+    author: row.author,
+    publisher: row.publisher,
+    thumbnail: row.thumbnail,
+    description: row.description,
+    link: row.link,
+    categoryIds: row.category_ids,
+    createdAt: row.created_at,
+  };
 }
 
-async function writeJson<T>(file: string, data: T): Promise<void> {
-  await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.writeFile(file, JSON.stringify(data, null, 2) + "\n", "utf-8");
+function bookToRow(book: Book): BookRow {
+  return {
+    id: book.id,
+    title: book.title,
+    author: book.author,
+    publisher: book.publisher,
+    thumbnail: book.thumbnail,
+    description: book.description,
+    link: book.link,
+    category_ids: book.categoryIds,
+    created_at: book.createdAt,
+  };
 }
 
 export async function getBooks(): Promise<Book[]> {
-  return readJson<Book[]>(BOOKS_FILE, []);
+  const { data, error } = await getSupabase()
+    .from("books")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) throw new Error(error.message);
+  return (data as BookRow[]).map(rowToBook);
 }
 
-export async function saveBooks(books: Book[]): Promise<void> {
-  await writeJson(BOOKS_FILE, books);
+export async function getBookById(id: string): Promise<Book | null> {
+  const { data, error } = await getSupabase()
+    .from("books")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return data ? rowToBook(data as BookRow) : null;
+}
+
+export async function createBook(book: Book): Promise<void> {
+  const { error } = await getSupabase().from("books").insert(bookToRow(book));
+  if (error) throw new Error(error.message);
+}
+
+export async function updateBook(
+  id: string,
+  patch: Omit<Book, "id" | "createdAt">
+): Promise<void> {
+  const { error } = await getSupabase()
+    .from("books")
+    .update({
+      title: patch.title,
+      author: patch.author,
+      publisher: patch.publisher,
+      thumbnail: patch.thumbnail,
+      description: patch.description,
+      link: patch.link,
+      category_ids: patch.categoryIds,
+    })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteBook(id: string): Promise<void> {
+  const { error } = await getSupabase().from("books").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+export async function upsertBooks(books: Book[]): Promise<void> {
+  if (books.length === 0) return;
+  const { error } = await getSupabase().from("books").upsert(books.map(bookToRow));
+  if (error) throw new Error(error.message);
 }
 
 export async function getCategories(): Promise<Category[]> {
-  return readJson<Category[]>(CATEGORIES_FILE, []);
+  const { data, error } = await getSupabase()
+    .from("categories")
+    .select("*")
+    .order("name");
+  if (error) throw new Error(error.message);
+  return data as Category[];
 }
 
-export async function saveCategories(categories: Category[]): Promise<void> {
-  await writeJson(CATEGORIES_FILE, categories);
+export async function createCategory(category: Category): Promise<void> {
+  const { error } = await getSupabase().from("categories").insert(category);
+  if (error) throw new Error(error.message);
+}
+
+export async function deleteCategory(id: string): Promise<void> {
+  const { error: rpcError } = await getSupabase().rpc(
+    "remove_category_from_books",
+    { cat_id: id }
+  );
+  if (rpcError) throw new Error(rpcError.message);
+
+  const { error } = await getSupabase().from("categories").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+}
+
+export async function upsertCategories(categories: Category[]): Promise<void> {
+  if (categories.length === 0) return;
+  const { error } = await getSupabase().from("categories").upsert(categories);
+  if (error) throw new Error(error.message);
 }

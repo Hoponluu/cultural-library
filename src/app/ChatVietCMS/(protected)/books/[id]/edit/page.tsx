@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getBooks, getCategories } from "@/lib/db";
+import { getBookById, getCategories } from "@/lib/db";
 import BookForm from "@/components/admin/BookForm";
 
 export default async function EditBookPage({
@@ -8,8 +8,7 @@ export default async function EditBookPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const [books, categories] = await Promise.all([getBooks(), getCategories()]);
-  const book = books.find((b) => b.id === id);
+  const [book, categories] = await Promise.all([getBookById(id), getCategories()]);
 
   if (!book) notFound();
 

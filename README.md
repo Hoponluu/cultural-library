@@ -1,6 +1,6 @@
 # Thư viện sách khảo cứu văn hoá
 
-Web app hiển thị và quản lý các đầu sách khảo cứu văn hoá, xây bằng Next.js (App Router).
+Web app hiển thị và quản lý các đầu sách khảo cứu văn hoá, xây bằng Next.js (App Router), dữ liệu lưu trên Supabase (Postgres + Storage), deploy trên Vercel.
 
 ## Tính năng
 
@@ -11,19 +11,27 @@ Web app hiển thị và quản lý các đầu sách khảo cứu văn hoá, x�
   - Export toàn bộ dữ liệu ra CSV.
   - Import hàng loạt từ CSV (tự tạo category mới nếu chưa có; nếu cột `id` khớp sách đã có sẽ cập nhật thay vì tạo mới).
 
-## Cách lưu trữ dữ liệu
+Admin thao tác trực tiếp trên bản deploy ở Vercel — dữ liệu ghi thẳng vào Supabase nên **không cần** workflow sửa local rồi deploy lại.
 
-Dữ liệu được lưu dạng file JSON trong thư mục `data/` (`books.json`, `categories.json`), không dùng database. Ảnh bìa upload được lưu trong `public/uploads/`.
+## Kiến trúc lưu trữ
 
-**Lưu ý quan trọng khi deploy lên Vercel/Netlify:** các nền tảng serverless này có filesystem chỉ đọc (read-only) ở production — mọi thao tác ghi từ trang admin (thêm/sửa/xoá sách, upload ảnh) sẽ **không được lưu lại lâu dài** giữa các lần deploy hoặc giữa các instance khác nhau.
+- Sách + category: bảng Postgres (`books`, `categories`) trên Supabase.
+- Ảnh bìa: Supabase Storage, bucket `covers` (public).
+- Không dùng filesystem cục bộ nữa — phù hợp để chạy trên môi trường serverless như Vercel (filesystem ở đó read-only/ephemeral).
 
-Vì vậy, workflow đề xuất là:
+Ứng dụng chỉ dùng **service role key** của Supabase, luôn gọi ở phía server (route handlers/server components), không bao giờ lộ ra client — nên không cần bật Row Level Security cho các bảng.
 
-1. Chạy `npm run dev` **ở local** để vào `/ChatVietCMS` thêm/sửa sách, upload ảnh — các thay đổi được ghi trực tiếp vào `data/*.json` và `public/uploads/`.
-2. `git add` + `git commit` các thay đổi đó (bao gồm cả ảnh upload).
-3. Deploy/redeploy lên Vercel/Netlify — trang public (`/`) được build tĩnh từ dữ liệu đã commit.
+## Setup Supabase (làm 1 lần)
 
-Nếu sau này cần admin thao tác trực tiếp trên môi trường production, nên chuyển `data/db.ts` sang một database thật (Postgres, SQLite qua Turso, v.v.) và lưu ảnh lên một object storage (S3, Vercel Blob...).
+1. Tạo project mới tại [supabase.com](https://supabase.com) (free tier).
+2. Vào **SQL Editor** → New query → dán toàn bộ nội dung file [`supabase/schema.sql`](./supabase/schema.sql) → Run. File này tạo bảng `books`, `categories`, function `remove_category_from_books`, và storage bucket `covers` (public).
+3. Vào **Project Settings → API**, lấy:
+   - `Project URL` → dùng làm `SUPABASE_URL`.
+   - `service_role` key (mục "Project API keys", **không phải** `anon` key) → dùng làm `SUPABASE_SERVICE_ROLE_KEY`. Key này có toàn quyền ghi, tuyệt đối không để lộ ra frontend/client.
+4. (Tuỳ chọn) Đưa dữ liệu sách mẫu có sẵn trong `data/*.json` vào Supabase:
+   ```bash
+   npm run seed
+   ```
 
 ## Cài đặt & chạy local
 
@@ -33,13 +41,16 @@ Nếu sau này cần admin thao tác trực tiếp trên môi trường producti
    npm install
    ```
 
-2. Tạo file `.env.local` từ mẫu và đặt mật khẩu admin:
+2. Tạo file `.env.local` từ mẫu:
 
    ```bash
    cp .env.example .env.local
    ```
 
-   Sửa `ADMIN_PASSWORD` (mật khẩu đăng nhập `/ChatVietCMS`) và `SESSION_SECRET` (chuỗi bí mật bất kỳ, dùng để ký session cookie) trong `.env.local`.
+   Điền:
+   - `ADMIN_PASSWORD`: mật khẩu đăng nhập `/ChatVietCMS`.
+   - `SESSION_SECRET`: chuỗi bí mật bất kỳ, dùng để ký session cookie.
+   - `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`: lấy từ bước Setup Supabase ở trên.
 
 3. Chạy dev server:
 
@@ -49,7 +60,15 @@ Nếu sau này cần admin thao tác trực tiếp trên môi trường producti
 
    Mở [http://localhost:3000](http://localhost:3000) cho trang public, [http://localhost:3000/ChatVietCMS](http://localhost:3000/ChatVietCMS) cho trang quản trị.
 
-## Build production
+## Deploy lên Vercel
+
+1. Import repo này vào Vercel (New Project → chọn repo).
+2. Ở bước cấu hình project (hoặc sau đó trong **Project Settings → Environment Variables**), thêm 4 biến môi trường giống `.env.local`: `ADMIN_PASSWORD`, `SESSION_SECRET`, `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`.
+3. Deploy. Trang public và `/ChatVietCMS` hoạt động ngay, đọc/ghi trực tiếp vào Supabase.
+
+Không cần cấu hình gì thêm cho ảnh — thumbnail upload từ admin sẽ lưu vào Supabase Storage và trả về URL public, hiển thị được ngay trên trang cả ở local lẫn trên Vercel.
+
+## Build production (chạy local để kiểm tra trước khi deploy)
 
 ```bash
 npm run build
@@ -63,7 +82,7 @@ npm run start
 | `title` | Tên sách |
 | `author` | Tác giả |
 | `publisher` | Nhà xuất bản |
-| `thumbnail` | Đường dẫn ảnh bìa (`/uploads/...`) |
+| `thumbnail` | URL ảnh bìa (Supabase Storage) |
 | `description` | Mô tả ngắn |
 | `link` | Link mua/đọc sách |
 | `categoryIds` | Danh sách id category (nhiều category cho 1 cuốn sách) |

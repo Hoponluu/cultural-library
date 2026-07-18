@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getBooks, saveBooks } from "@/lib/db";
+import { deleteBook, getBookById, updateBook } from "@/lib/db";
 import { parseBookFormData } from "@/lib/bookForm";
 import { deleteThumbnailUpload, saveThumbnailUpload } from "@/lib/upload";
 
@@ -17,13 +17,11 @@ export async function PUT(
     return NextResponse.json({ error: (err as Error).message }, { status: 400 });
   }
 
-  const books = await getBooks();
-  const index = books.findIndex((b) => b.id === id);
-  if (index === -1) {
+  const existing = await getBookById(id);
+  if (!existing) {
     return NextResponse.json({ error: "Không tìm thấy sách." }, { status: 404 });
   }
 
-  const existing = books[index];
   let thumbnail = existing.thumbnail;
 
   if (fields.thumbnailFile) {
@@ -39,8 +37,7 @@ export async function PUT(
     thumbnail = "";
   }
 
-  books[index] = {
-    ...existing,
+  const updated = {
     title: fields.title,
     author: fields.author,
     publisher: fields.publisher,
@@ -50,9 +47,9 @@ export async function PUT(
     thumbnail,
   };
 
-  await saveBooks(books);
+  await updateBook(id, updated);
 
-  return NextResponse.json({ book: books[index] });
+  return NextResponse.json({ book: { id, createdAt: existing.createdAt, ...updated } });
 }
 
 export async function DELETE(
@@ -60,15 +57,14 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const books = await getBooks();
-  const index = books.findIndex((b) => b.id === id);
-  if (index === -1) {
+
+  const existing = await getBookById(id);
+  if (!existing) {
     return NextResponse.json({ error: "Không tìm thấy sách." }, { status: 404 });
   }
 
-  const [removed] = books.splice(index, 1);
-  await saveBooks(books);
-  if (removed.thumbnail) await deleteThumbnailUpload(removed.thumbnail);
+  await deleteBook(id);
+  if (existing.thumbnail) await deleteThumbnailUpload(existing.thumbnail);
 
   return NextResponse.json({ ok: true });
 }

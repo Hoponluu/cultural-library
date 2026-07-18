@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getBooks, getCategories, saveBooks, saveCategories } from "@/lib/db";
+import { getBooks, getCategories, upsertBooks, upsertCategories } from "@/lib/db";
 import { parseBooksCsv } from "@/lib/csv";
 
 export async function POST(request: Request) {
@@ -18,8 +18,8 @@ export async function POST(request: Request) {
 
   const result = parseBooksCsv(csvText, existingBooks, existingCategories);
 
-  await saveCategories(result.categories);
-  await saveBooks(result.books);
+  await upsertCategories(result.categories);
+  await upsertBooks(result.books);
 
   return NextResponse.json({
     created: result.created,
