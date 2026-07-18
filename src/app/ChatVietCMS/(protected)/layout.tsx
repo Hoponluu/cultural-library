@@ -26,6 +26,9 @@ export default async function AdminProtectedLayout({
             <Link href="/ChatVietCMS/import-export" className="hover:text-highlight hover:underline">
               Import / Export
             </Link>
+            <Link href="/ChatVietCMS/settings" className="hover:text-highlight hover:underline">
+              Cài đặt
+            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">

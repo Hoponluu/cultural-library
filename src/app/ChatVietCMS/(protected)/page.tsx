@@ -36,6 +36,12 @@ export default async function AdminHomePage() {
         >
           Import / Export CSV
         </Link>
+        <Link
+          href="/ChatVietCMS/settings"
+          className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:border-highlight hover:text-highlight"
+        >
+          Cài đặt ảnh header
+        </Link>
       </div>
     </div>
   );

@@ -22,3 +22,4 @@ export function getSupabase(): SupabaseClient {
 }
 
 export const COVERS_BUCKET = "covers";
+export const SITE_ASSETS_BUCKET = "site-assets";

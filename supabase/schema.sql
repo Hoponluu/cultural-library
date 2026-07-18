@@ -35,5 +35,20 @@ insert into storage.buckets (id, name, public)
 values ('covers', 'covers', true)
 on conflict (id) do update set public = excluded.public;
 
+-- Cấu hình chung của trang (hiện chỉ có ảnh header), luôn chỉ có 1 dòng 'default'.
+create table if not exists site_settings (
+  id text primary key default 'default',
+  header_image_url text not null default '',
+  updated_at timestamptz not null default now()
+);
+
+insert into site_settings (id) values ('default')
+on conflict (id) do nothing;
+
+-- Bucket lưu các ảnh dùng chung cho giao diện trang (ảnh header...), tách riêng khỏi ảnh bìa sách.
+insert into storage.buckets (id, name, public)
+values ('site-assets', 'site-assets', true)
+on conflict (id) do update set public = excluded.public;
+
 -- Ứng dụng chỉ truy cập Supabase bằng service_role key ở phía server (không dùng ở client),
 -- key này bỏ qua Row Level Security nên KHÔNG cần bật RLS/policy cho các bảng trên.

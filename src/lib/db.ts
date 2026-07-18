@@ -1,6 +1,6 @@
 import "server-only";
 import { getSupabase } from "./supabase";
-import type { Book, Category } from "./types";
+import type { Book, Category, SiteSettings } from "./types";
 
 type BookRow = {
   id: string;
@@ -124,5 +124,22 @@ export async function deleteCategory(id: string): Promise<void> {
 export async function upsertCategories(categories: Category[]): Promise<void> {
   if (categories.length === 0) return;
   const { error } = await getSupabase().from("categories").upsert(categories);
+  if (error) throw new Error(error.message);
+}
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  const { data, error } = await getSupabase()
+    .from("site_settings")
+    .select("header_image_url")
+    .eq("id", "default")
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return { headerImageUrl: data?.header_image_url ?? "" };
+}
+
+export async function updateHeaderImage(url: string): Promise<void> {
+  const { error } = await getSupabase()
+    .from("site_settings")
+    .upsert({ id: "default", header_image_url: url, updated_at: new Date().toISOString() });
   if (error) throw new Error(error.message);
 }

@@ -1,15 +1,19 @@
-import { getBooks, getCategories } from "@/lib/db";
+import { getBooks, getCategories, getSiteSettings } from "@/lib/db";
 import BookGrid from "@/components/BookGrid";
 import HeroHeader, { HERO_HEIGHT_CLASS } from "@/components/HeroHeader";
 
 export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [books, categories] = await Promise.all([getBooks(), getCategories()]);
+  const [books, categories, settings] = await Promise.all([
+    getBooks(),
+    getCategories(),
+    getSiteSettings(),
+  ]);
 
   return (
     <>
-      <HeroHeader />
+      <HeroHeader imageUrl={settings.headerImageUrl} />
       {/* Spacer giữ chỗ cho hero, đẩy nội dung xuống dưới nó lúc đầu trang */}
       <div className={HERO_HEIGHT_CLASS} />
       <main className="relative z-10 rounded-t-2xl bg-background">

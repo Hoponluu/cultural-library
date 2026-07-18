@@ -10,13 +10,16 @@ Web app hiển thị và quản lý các đầu sách khảo cứu văn hoá, x�
   - Thêm / xoá category (xoá category sẽ tự gỡ khỏi các sách đang gán).
   - Export toàn bộ dữ liệu ra CSV.
   - Import hàng loạt từ CSV (tự tạo category mới nếu chưa có; nếu cột `id` khớp sách đã có sẽ cập nhật thay vì tạo mới).
+  - **Cài đặt** (`/ChatVietCMS/settings`): upload/thay/xoá ảnh header hiển thị ở đầu trang public.
 
 Admin thao tác trực tiếp trên bản deploy ở Vercel — dữ liệu ghi thẳng vào Supabase nên **không cần** workflow sửa local rồi deploy lại.
 
 ## Kiến trúc lưu trữ
 
 - Sách + category: bảng Postgres (`books`, `categories`) trên Supabase.
-- Ảnh bìa: Supabase Storage, bucket `covers` (public).
+- Cấu hình trang (ảnh header): bảng `site_settings` (luôn chỉ có 1 dòng `default`).
+- Ảnh bìa sách: Supabase Storage, bucket `covers` (public).
+- Ảnh giao diện trang (header...): Supabase Storage, bucket `site-assets` (public).
 - Không dùng filesystem cục bộ nữa — phù hợp để chạy trên môi trường serverless như Vercel (filesystem ở đó read-only/ephemeral).
 
 Ứng dụng chỉ dùng **service role key** của Supabase, luôn gọi ở phía server (route handlers/server components), không bao giờ lộ ra client — nên không cần bật Row Level Security cho các bảng.
@@ -24,7 +27,7 @@ Admin thao tác trực tiếp trên bản deploy ở Vercel — dữ liệu ghi 
 ## Setup Supabase (làm 1 lần)
 
 1. Tạo project mới tại [supabase.com](https://supabase.com) (free tier).
-2. Vào **SQL Editor** → New query → dán toàn bộ nội dung file [`supabase/schema.sql`](./supabase/schema.sql) → Run. File này tạo bảng `books`, `categories`, function `remove_category_from_books`, và storage bucket `covers` (public).
+2. Vào **SQL Editor** → New query → dán toàn bộ nội dung file [`supabase/schema.sql`](./supabase/schema.sql) → Run. File này tạo bảng `books`, `categories`, `site_settings`, function `remove_category_from_books`, và 2 storage bucket `covers`, `site-assets` (đều public). File chạy lại nhiều lần vẫn an toàn (idempotent) — nếu project của bạn đã setup từ trước, chạy lại file này để có thêm phần `site_settings`/`site-assets`.
 3. Vào **Project Settings → API**, lấy:
    - `Project URL` → dùng làm `SUPABASE_URL`.
    - `service_role` key (mục "Project API keys", **không phải** `anon` key) → dùng làm `SUPABASE_SERVICE_ROLE_KEY`. Key này có toàn quyền ghi, tuyệt đối không để lộ ra frontend/client.

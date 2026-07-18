@@ -14,3 +14,7 @@ export type Book = {
   categoryIds: string[];
   createdAt: string;
 };
+
+export type SiteSettings = {
+  headerImageUrl: string;
+};
