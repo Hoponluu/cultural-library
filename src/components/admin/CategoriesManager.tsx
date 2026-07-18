@@ -63,38 +63,38 @@ export default function CategoriesManager({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Tên category mới, vd: Khảo cổ học"
-          className="flex-1 rounded-md border border-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-black/40 dark:border-white/20 dark:focus:border-white/40"
+          className="flex-1 rounded-md border border-neutral-700 bg-transparent px-3 py-2 text-sm text-neutral-100 outline-none focus:border-highlight"
         />
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+          className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C] disabled:opacity-50"
         >
           Thêm
         </button>
       </form>
-      {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
+      {error && <p className="mb-4 text-sm text-red-400">{error}</p>}
 
-      <div className="flex flex-col divide-y divide-black/10 dark:divide-white/10">
+      <div className="flex flex-col divide-y divide-neutral-800">
         {categories.map((c) => (
           <div key={c.id} className="flex items-center justify-between py-3">
             <div>
-              <span className="font-medium">{c.name}</span>
-              <span className="ml-2 text-sm text-black/50 dark:text-white/50">
+              <span className="font-medium text-neutral-100">{c.name}</span>
+              <span className="ml-2 text-sm text-neutral-500">
                 {bookCountByCategory[c.id] ?? 0} sách
               </span>
             </div>
             <button
               onClick={() => handleDelete(c.id, c.name)}
               disabled={deletingId === c.id}
-              className="text-sm text-red-600 hover:underline disabled:opacity-50 dark:text-red-400"
+              className="text-sm text-red-400 hover:underline disabled:opacity-50"
             >
               {deletingId === c.id ? "Đang xoá..." : "Xoá"}
             </button>
           </div>
         ))}
         {categories.length === 0 && (
-          <p className="py-3 text-sm text-black/60 dark:text-white/60">
+          <p className="py-3 text-sm text-neutral-400">
             Chưa có category nào.
           </p>
         )}

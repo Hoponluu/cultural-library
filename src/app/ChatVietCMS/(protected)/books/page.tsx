@@ -9,10 +9,10 @@ export default async function AdminBooksPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">Sách ({books.length})</h1>
+        <h1 className="text-2xl font-semibold text-highlight">Sách ({books.length})</h1>
         <Link
           href="/ChatVietCMS/books/new"
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+          className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C]"
         >
           + Thêm sách mới
         </Link>

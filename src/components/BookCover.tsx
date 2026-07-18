@@ -22,7 +22,7 @@ export default function BookCover({
     <div
       className={
         (className ?? "h-full w-full") +
-        " flex items-center justify-center bg-black/5 p-3 text-center text-sm font-medium text-black/40 dark:bg-white/10 dark:text-white/40"
+        " flex items-center justify-center bg-white/5 p-3 text-center text-sm font-medium text-neutral-500"
       }
     >
       {title}

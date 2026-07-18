@@ -9,10 +9,10 @@ export default async function Home() {
   return (
     <main className="mx-auto w-full max-w-6xl px-4 py-10">
       <header className="mb-8">
-        <h1 className="text-2xl font-semibold sm:text-3xl">
+        <h1 className="text-2xl font-semibold text-highlight sm:text-3xl">
           Thư viện sách khảo cứu văn hoá
         </h1>
-        <p className="mt-2 text-black/60 dark:text-white/60">
+        <p className="mt-2 text-neutral-400">
           Tuyển tập các đầu sách khảo cứu văn hoá Việt Nam và thế giới.
         </p>
       </header>

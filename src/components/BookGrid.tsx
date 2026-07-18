@@ -42,8 +42,8 @@ export default function BookGrid({
             className={
               "rounded-full border px-3 py-1 text-sm transition " +
               (activeCategoryIds.length === 0
-                ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                : "border-black/15 hover:border-black/40 dark:border-white/20 dark:hover:border-white/40")
+                ? "border-highlight bg-highlight text-[#01090C] font-medium"
+                : "border-neutral-700 text-neutral-300 hover:border-highlight hover:text-highlight")
             }
           >
             Tất cả
@@ -57,8 +57,8 @@ export default function BookGrid({
                 className={
                   "rounded-full border px-3 py-1 text-sm transition " +
                   (active
-                    ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                    : "border-black/15 hover:border-black/40 dark:border-white/20 dark:hover:border-white/40")
+                    ? "border-highlight bg-highlight text-[#01090C] font-medium"
+                    : "border-neutral-700 text-neutral-300 hover:border-highlight hover:text-highlight")
                 }
               >
                 {c.name}
@@ -69,7 +69,7 @@ export default function BookGrid({
       )}
 
       {visibleBooks.length === 0 ? (
-        <p className="text-black/60 dark:text-white/60">
+        <p className="text-neutral-400">
           Không có sách nào phù hợp bộ lọc hiện tại.
         </p>
       ) : (
@@ -80,17 +80,17 @@ export default function BookGrid({
               onClick={() => setSelectedBook(book)}
               className="group flex flex-col text-left"
             >
-              <div className="aspect-[3/4] w-full overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
+              <div className="aspect-[3/4] w-full overflow-hidden rounded-lg border border-neutral-800">
                 <BookCover
                   src={book.thumbnail}
                   title={book.title}
                   className="h-full w-full object-cover transition group-hover:scale-105"
                 />
               </div>
-              <div className="mt-2 line-clamp-2 text-sm font-medium">
+              <div className="mt-2 line-clamp-2 text-sm font-medium text-neutral-100">
                 {book.title}
               </div>
-              <div className="line-clamp-1 text-xs text-black/60 dark:text-white/60">
+              <div className="line-clamp-1 text-xs text-neutral-400">
                 {book.author}
               </div>
             </button>
@@ -120,22 +120,22 @@ function BookDetailModal({
 }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4"
       onClick={onClose}
     >
       <div
-        className="flex max-h-[85vh] w-full max-w-2xl gap-6 overflow-y-auto rounded-xl bg-white p-6 dark:bg-neutral-900"
+        className="flex max-h-[85vh] w-full max-w-2xl gap-6 overflow-y-auto rounded-xl border border-neutral-800 bg-neutral-900 p-6"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="w-40 shrink-0 overflow-hidden rounded-lg border border-black/10 dark:border-white/10">
+        <div className="w-40 shrink-0 overflow-hidden rounded-lg border border-neutral-800">
           <BookCover src={book.thumbnail} title={book.title} />
         </div>
         <div className="flex flex-1 flex-col">
-          <h2 className="text-xl font-semibold">{book.title}</h2>
-          <p className="mt-1 text-sm text-black/70 dark:text-white/70">
+          <h2 className="text-xl font-semibold text-highlight">{book.title}</h2>
+          <p className="mt-1 text-sm text-neutral-300">
             Tác giả: {book.author || "—"}
           </p>
-          <p className="text-sm text-black/70 dark:text-white/70">
+          <p className="text-sm text-neutral-300">
             NXB: {book.publisher || "—"}
           </p>
           {book.categoryIds.length > 0 && (
@@ -146,7 +146,7 @@ function BookDetailModal({
                 return (
                   <span
                     key={id}
-                    className="rounded-full bg-black/5 px-2.5 py-0.5 text-xs dark:bg-white/10"
+                    className="rounded-full bg-white/10 px-2.5 py-0.5 text-xs text-neutral-200"
                   >
                     {c.name}
                   </span>
@@ -155,7 +155,7 @@ function BookDetailModal({
             </div>
           )}
           {book.description && (
-            <p className="mt-4 text-sm leading-relaxed text-black/80 dark:text-white/80">
+            <p className="mt-4 text-sm leading-relaxed text-neutral-300">
               {book.description}
             </p>
           )}
@@ -165,7 +165,7 @@ function BookDetailModal({
                 href={book.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+                className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C]"
               >
                 Mua / Đọc sách
               </a>
@@ -174,7 +174,7 @@ function BookDetailModal({
             )}
             <button
               onClick={onClose}
-              className="text-sm text-black/60 hover:underline dark:text-white/60"
+              className="text-sm text-neutral-400 hover:text-highlight hover:underline"
             >
               Đóng
             </button>

@@ -6,33 +6,33 @@ export default async function AdminHomePage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-semibold">Tổng quan</h1>
+      <h1 className="mb-6 text-2xl font-semibold text-highlight">Tổng quan</h1>
       <div className="mb-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-black/10 p-4 dark:border-white/10">
-          <div className="text-2xl font-semibold">{books.length}</div>
-          <div className="text-sm text-black/60 dark:text-white/60">Đầu sách</div>
+        <div className="rounded-lg border border-neutral-800 p-4">
+          <div className="text-2xl font-semibold text-neutral-100">{books.length}</div>
+          <div className="text-sm text-neutral-400">Đầu sách</div>
         </div>
-        <div className="rounded-lg border border-black/10 p-4 dark:border-white/10">
-          <div className="text-2xl font-semibold">{categories.length}</div>
-          <div className="text-sm text-black/60 dark:text-white/60">Category</div>
+        <div className="rounded-lg border border-neutral-800 p-4">
+          <div className="text-2xl font-semibold text-neutral-100">{categories.length}</div>
+          <div className="text-sm text-neutral-400">Category</div>
         </div>
       </div>
       <div className="flex flex-wrap gap-3">
         <Link
           href="/ChatVietCMS/books/new"
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-white dark:text-black"
+          className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C]"
         >
           + Thêm sách mới
         </Link>
         <Link
           href="/ChatVietCMS/categories"
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium dark:border-white/20"
+          className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:border-highlight hover:text-highlight"
         >
           Quản lý category
         </Link>
         <Link
           href="/ChatVietCMS/import-export"
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium dark:border-white/20"
+          className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:border-highlight hover:text-highlight"
         >
           Import / Export CSV
         </Link>

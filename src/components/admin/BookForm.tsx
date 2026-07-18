@@ -79,15 +79,15 @@ export default function BookForm({
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div>
-        <label className="mb-1 block text-sm font-medium">Ảnh bìa (thumbnail)</label>
+        <label className="mb-1 block text-sm font-medium text-neutral-300">Ảnh bìa (thumbnail)</label>
         <div className="flex items-center gap-4">
-          <div className="h-32 w-24 shrink-0 overflow-hidden rounded border border-black/10 dark:border-white/10">
+          <div className="h-32 w-24 shrink-0 overflow-hidden rounded border border-neutral-800">
             <BookCover src={removeThumbnail ? "" : thumbnailPreview} title={title || "Bìa sách"} />
           </div>
           <div className="flex flex-col gap-2">
-            <input type="file" accept="image/*" onChange={handleThumbnailChange} />
+            <input type="file" accept="image/*" onChange={handleThumbnailChange} className="text-neutral-300" />
             {isEdit && initialBook?.thumbnail && !thumbnailFile && (
-              <label className="flex items-center gap-2 text-sm">
+              <label className="flex items-center gap-2 text-sm text-neutral-300">
                 <input
                   type="checkbox"
                   checked={removeThumbnail}
@@ -124,7 +124,7 @@ export default function BookForm({
       <Field label="Category">
         <div className="flex flex-wrap gap-2">
           {categories.length === 0 && (
-            <p className="text-sm text-black/50 dark:text-white/50">
+            <p className="text-sm text-neutral-500">
               Chưa có category nào. Vào mục Category để thêm.
             </p>
           )}
@@ -138,8 +138,8 @@ export default function BookForm({
                 className={
                   "rounded-full border px-3 py-1 text-sm transition " +
                   (active
-                    ? "border-black bg-black text-white dark:border-white dark:bg-white dark:text-black"
-                    : "border-black/15 hover:border-black/40 dark:border-white/20 dark:hover:border-white/40")
+                    ? "border-highlight bg-highlight text-[#01090C] font-medium"
+                    : "border-neutral-700 text-neutral-300 hover:border-highlight hover:text-highlight")
                 }
               >
                 {c.name}
@@ -168,20 +168,20 @@ export default function BookForm({
         />
       </Field>
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-red-400">{error}</p>}
 
       <div className="flex gap-3">
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+          className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C] disabled:opacity-50"
         >
           {saving ? "Đang lưu..." : isEdit ? "Lưu thay đổi" : "Thêm sách"}
         </button>
         <button
           type="button"
           onClick={() => router.push("/ChatVietCMS/books")}
-          className="rounded-md border border-black/15 px-4 py-2 text-sm font-medium dark:border-white/20"
+          className="rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:border-highlight hover:text-highlight"
         >
           Huỷ
         </button>
@@ -191,7 +191,7 @@ export default function BookForm({
 }
 
 const inputClass =
-  "w-full rounded-md border border-black/15 bg-transparent px-3 py-2 text-sm outline-none focus:border-black/40 dark:border-white/20 dark:focus:border-white/40";
+  "w-full rounded-md border border-neutral-700 bg-transparent px-3 py-2 text-sm text-neutral-100 outline-none focus:border-highlight";
 
 function Field({
   label,
@@ -204,8 +204,8 @@ function Field({
 }) {
   return (
     <div>
-      <label className="mb-1 block text-sm font-medium">
-        {label} {required && <span className="text-red-500">*</span>}
+      <label className="mb-1 block text-sm font-medium text-neutral-300">
+        {label} {required && <span className="text-red-400">*</span>}
       </label>
       {children}
     </div>

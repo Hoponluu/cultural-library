@@ -44,21 +44,21 @@ export default function ImportExportPanel() {
   return (
     <div className="flex max-w-xl flex-col gap-10">
       <section>
-        <h2 className="mb-2 text-lg font-semibold">Export</h2>
-        <p className="mb-3 text-sm text-black/60 dark:text-white/60">
+        <h2 className="mb-2 text-lg font-semibold text-highlight">Export</h2>
+        <p className="mb-3 text-sm text-neutral-400">
           Tải toàn bộ dữ liệu sách hiện tại ra file CSV.
         </p>
         <a
           href="/api/admin/export"
-          className="inline-block rounded-md border border-black/15 px-4 py-2 text-sm font-medium dark:border-white/20"
+          className="inline-block rounded-md border border-neutral-700 px-4 py-2 text-sm font-medium text-neutral-200 hover:border-highlight hover:text-highlight"
         >
           Tải file CSV
         </a>
       </section>
 
       <section>
-        <h2 className="mb-2 text-lg font-semibold">Import</h2>
-        <p className="mb-3 text-sm text-black/60 dark:text-white/60">
+        <h2 className="mb-2 text-lg font-semibold text-highlight">Import</h2>
+        <p className="mb-3 text-sm text-neutral-400">
           Import hàng loạt sách từ file CSV. Cột: <code>id, title, author, publisher,
           thumbnail, description, link, categories</code> (categories cách nhau bằng
           dấu chấm phẩy &ldquo;;&rdquo;). Nếu <code>id</code> khớp với sách đã có, sách đó
@@ -66,26 +66,32 @@ export default function ImportExportPanel() {
           được tự động tạo mới.
         </p>
         <form onSubmit={handleImport} className="flex items-center gap-3">
-          <input ref={fileInputRef} type="file" accept=".csv,text/csv" required />
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".csv,text/csv"
+            required
+            className="text-neutral-300"
+          />
           <button
             type="submit"
             disabled={importing}
-            className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black"
+            className="rounded-md bg-highlight px-4 py-2 text-sm font-medium text-[#01090C] disabled:opacity-50"
           >
             {importing ? "Đang import..." : "Import"}
           </button>
         </form>
 
-        {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
+        {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
 
         {result && (
-          <div className="mt-3 text-sm">
+          <div className="mt-3 text-sm text-neutral-300">
             <p>
-              Đã tạo mới <strong>{result.created}</strong>, cập nhật{" "}
-              <strong>{result.updated}</strong> sách.
+              Đã tạo mới <strong className="text-neutral-100">{result.created}</strong>, cập nhật{" "}
+              <strong className="text-neutral-100">{result.updated}</strong> sách.
             </p>
             {result.errors.length > 0 && (
-              <ul className="mt-2 list-disc pl-5 text-amber-600 dark:text-amber-400">
+              <ul className="mt-2 list-disc pl-5 text-amber-400">
                 {result.errors.map((e, i) => (
                   <li key={i}>{e}</li>
                 ))}

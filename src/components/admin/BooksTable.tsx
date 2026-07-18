@@ -28,22 +28,22 @@ export default function BooksTable({
 
   if (books.length === 0) {
     return (
-      <p className="text-black/60 dark:text-white/60">
+      <p className="text-neutral-400">
         Chưa có sách nào. Bấm &ldquo;Thêm sách mới&rdquo; để bắt đầu.
       </p>
     );
   }
 
   return (
-    <div className="flex flex-col divide-y divide-black/10 dark:divide-white/10">
+    <div className="flex flex-col divide-y divide-neutral-800">
       {books.map((book) => (
         <div key={book.id} className="flex items-center gap-4 py-3">
-          <div className="h-16 w-12 shrink-0 overflow-hidden rounded border border-black/10 dark:border-white/10">
+          <div className="h-16 w-12 shrink-0 overflow-hidden rounded border border-neutral-800">
             <BookCover src={book.thumbnail} title={book.title} />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="truncate font-medium">{book.title}</div>
-            <div className="truncate text-sm text-black/60 dark:text-white/60">
+            <div className="truncate font-medium text-neutral-100">{book.title}</div>
+            <div className="truncate text-sm text-neutral-400">
               {book.author} {book.publisher && `· ${book.publisher}`}
             </div>
             <div className="mt-1 flex flex-wrap gap-1">
@@ -53,7 +53,7 @@ export default function BooksTable({
                 return (
                   <span
                     key={id}
-                    className="rounded-full bg-black/5 px-2 py-0.5 text-xs dark:bg-white/10"
+                    className="rounded-full bg-white/10 px-2 py-0.5 text-xs text-neutral-300"
                   >
                     {c.name}
                   </span>
@@ -62,13 +62,16 @@ export default function BooksTable({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-3 text-sm">
-            <Link href={`/ChatVietCMS/books/${book.id}/edit`} className="hover:underline">
+            <Link
+              href={`/ChatVietCMS/books/${book.id}/edit`}
+              className="text-neutral-300 hover:text-highlight hover:underline"
+            >
               Sửa
             </Link>
             <button
               onClick={() => handleDelete(book.id, book.title)}
               disabled={deletingId === book.id}
-              className="text-red-600 hover:underline disabled:opacity-50 dark:text-red-400"
+              className="text-red-400 hover:underline disabled:opacity-50"
             >
               {deletingId === book.id ? "Đang xoá..." : "Xoá"}
             </button>
