@@ -13,6 +13,7 @@ export default function BookGrid({
 }) {
   const [activeCategoryIds, setActiveCategoryIds] = useState<string[]>([]);
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
+  const [query, setQuery] = useState("");
 
   const categoryById = useMemo(() => {
     const map = new Map<string, Category>();
@@ -21,11 +22,15 @@ export default function BookGrid({
   }, [categories]);
 
   const visibleBooks = useMemo(() => {
-    if (activeCategoryIds.length === 0) return books;
-    return books.filter((b) =>
-      b.categoryIds.some((id) => activeCategoryIds.includes(id))
-    );
-  }, [books, activeCategoryIds]);
+    const q = query.trim().toLocaleLowerCase("vi");
+    return books.filter((b) => {
+      const matchesCategory =
+        activeCategoryIds.length === 0 ||
+        b.categoryIds.some((id) => activeCategoryIds.includes(id));
+      const matchesQuery = !q || b.title.toLocaleLowerCase("vi").includes(q);
+      return matchesCategory && matchesQuery;
+    });
+  }, [books, activeCategoryIds, query]);
 
   function toggleCategory(id: string) {
     setActiveCategoryIds((prev) =>
@@ -35,6 +40,27 @@ export default function BookGrid({
 
   return (
     <div>
+      <div className="relative mb-6 max-w-md">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={2}
+          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-neutral-500"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m21 21-4.3-4.3" strokeLinecap="round" />
+        </svg>
+        <input
+          type="search"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Tìm sách theo tên..."
+          className="w-full rounded-full border border-neutral-700 bg-transparent py-2 pl-9 pr-4 text-sm text-neutral-100 outline-none placeholder:text-neutral-500 focus:border-highlight"
+        />
+      </div>
+
       {categories.length > 0 && (
         <div className="mb-6 flex flex-wrap gap-2">
           <button
